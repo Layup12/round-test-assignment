@@ -18,10 +18,12 @@
     "@mantine/core": "^8.0.0",
     "@mantine/hooks": "^8.0.0",
     "@reduxjs/toolkit": "^2.0.0",
+    "clsx": "^2.1.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-redux": "^9.0.0",
     "react-router-dom": "^7.0.0",
+    "react-virtualized": "^9.22.6",
     "redux-persist": "^6.0.0"
   },
   "devDependencies": {

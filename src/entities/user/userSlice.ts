@@ -1,4 +1,4 @@
-import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+import { createEntityAdapter, createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 export interface UserEntity {
   id: string;
@@ -14,9 +14,38 @@ export const userSlice = createSlice({
     addOne: userAdapter.addOne,
     setAll: userAdapter.setAll,
     updateOne: userAdapter.updateOne,
+    renameUserIfUnique: (
+      state,
+      action: PayloadAction<{
+        id: string;
+        name: string;
+      }>,
+    ) => {
+      const { id, name } = action.payload;
+      const trimmed = name.trim();
+
+      if (trimmed.length < 4) {
+        return;
+      }
+
+      const entities = state.entities;
+
+      const hasDuplicateName = Object.values(entities).some(
+        (user) => user && user.id !== id && user.name === trimmed,
+      );
+
+      if (hasDuplicateName) {
+        return;
+      }
+
+      userAdapter.updateOne(state, {
+        id,
+        changes: { name: trimmed },
+      });
+    },
   },
 });
 
-export const { addOne: addUser, setAll: setUsers, updateOne: updateUser } = userSlice.actions;
+export const { addOne: addUser, setAll: setUsers, renameUserIfUnique } = userSlice.actions;
 
 export const { selectById: selectUserById, selectAll: selectAllUsers } = userAdapter.getSelectors();

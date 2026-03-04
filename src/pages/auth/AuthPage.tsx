@@ -8,10 +8,12 @@ export function AuthPage() {
 
   return (
     <Container size="xs" className={classes.root}>
-      <form className={classes.form} onSubmit={handleSubmit}>
+      <form name="auth-form" aria-label="Форма авторизации" className={classes.form} onSubmit={handleSubmit}>
         <Stack>
           <Title ta="center">Введите имя</Title>
           <TextInput
+            id="auth-name"
+            name="name"
             value={name}
             maxLength={12}
             placeholder="Введите имя"
