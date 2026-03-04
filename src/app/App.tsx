@@ -1,9 +1,18 @@
-import { Container, Title } from '@mantine/core';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+import { PersistGate } from 'redux-persist/integration/react';
+
+import { AppRouter } from './routes';
+import { appPersistStore, appStore } from './store';
 
 export function App() {
   return (
-    <Container size="xs" py="xl">
-      <Title order={1}>ROUND</Title>
-    </Container>
+    <Provider store={appStore}>
+      <PersistGate loading={null} persistor={appPersistStore}>
+        <BrowserRouter>
+          <AppRouter />
+        </BrowserRouter>
+      </PersistGate>
+    </Provider>
   );
 }
