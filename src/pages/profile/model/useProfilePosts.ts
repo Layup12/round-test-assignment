@@ -25,7 +25,7 @@ export function useProfilePosts(userId: string | undefined): UseProfilePostsResu
       .sort((left, right) => new Date(right.createdAt).getTime() - new Date(left.createdAt).getTime());
   }, [allPosts, userId]);
 
-  const posts = useMemo(() => sortedPosts.slice(0, visibleCount), [sortedPosts, visibleCount]);
+  const posts = sortedPosts.slice(0, visibleCount);
 
   const hasMore = visibleCount < sortedPosts.length;
 

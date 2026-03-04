@@ -32,7 +32,7 @@ export function useFeedPosts(): UseFeedPostsResult {
   const [activeTab, setActiveTabState] = useState<FeedTab>('all');
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
-  const usersById = useMemo(() => Object.fromEntries(users.map((user) => [user.id, user])), [users]);
+  const usersById = Object.fromEntries(users.map((user) => [user.id, user]));
 
   const followingIds = useMemo(() => {
     if (!currentUserId) {
@@ -56,10 +56,7 @@ export function useFeedPosts(): UseFeedPostsResult {
     return sorted.filter((post) => post.authorId === currentUserId || followingIds.has(post.authorId));
   }, [activeTab, currentUserId, followingIds, posts]);
 
-  const visiblePosts = useMemo(
-    () => sortedFilteredPosts.slice(0, visibleCount),
-    [sortedFilteredPosts, visibleCount],
-  );
+  const visiblePosts = sortedFilteredPosts.slice(0, visibleCount);
 
   const hasMore = visibleCount < sortedFilteredPosts.length;
 

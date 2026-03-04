@@ -1,10 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
-
-interface UseEditableProfileNameParams {
-  name: string;
-  canEdit: boolean;
-  onNameChange?: (nextName: string) => void;
-}
+import { useState } from 'react';
 
 interface UseEditableProfileNameResult {
   isEditing: boolean;
@@ -15,66 +9,60 @@ interface UseEditableProfileNameResult {
   handleCancel: () => void;
 }
 
+function resetEditing(params: {
+  name: string;
+  setIsEditing: (value: boolean) => void;
+  setDraftName: (value: string) => void;
+}) {
+  const { name, setIsEditing, setDraftName } = params;
+  setIsEditing(false);
+  setDraftName(name);
+}
+
 export function useEditableProfileName({
   name,
   canEdit,
   onNameChange,
-}: UseEditableProfileNameParams): UseEditableProfileNameResult {
+}: {
+  name: string;
+  canEdit: boolean;
+  onNameChange?: (nextName: string) => void;
+}): UseEditableProfileNameResult {
   const [isEditing, setIsEditing] = useState(false);
   const [draftName, setDraftName] = useState(name);
 
-  useEffect(() => {
-    setDraftName(name);
-  }, [name]);
-
-  const reset = useCallback(() => {
-    setIsEditing(false);
-    setDraftName(name);
-  }, [name]);
-
-  const handleStartEdit = useCallback(() => {
+  const handleStartEdit = () => {
     if (!canEdit) {
       return;
     }
 
+    setDraftName(name);
     setIsEditing(true);
-  }, [canEdit]);
+  };
 
-  const handleChange = useCallback((value: string) => {
-    setDraftName(value);
-  }, []);
-
-  const handleApply = useCallback(() => {
+  const handleBlur = () => {
     if (!canEdit || !onNameChange) {
-      reset();
+      resetEditing({ name, setIsEditing, setDraftName });
       return;
     }
 
     const trimmed = draftName.trim();
 
     if (trimmed.length < 4 || trimmed === name) {
-      reset();
+      resetEditing({ name, setIsEditing, setDraftName });
       return;
     }
 
     onNameChange(trimmed);
     setIsEditing(false);
-  }, [canEdit, draftName, name, onNameChange, reset]);
-
-  const handleBlur = useCallback(() => {
-    handleApply();
-  }, [handleApply]);
-
-  const handleCancel = useCallback(() => {
-    reset();
-  }, [reset]);
+  };
 
   return {
     isEditing,
     draftName,
     handleStartEdit,
-    handleChange,
+    handleChange: setDraftName,
     handleBlur,
-    handleCancel,
+    handleCancel: () => resetEditing({ name, setIsEditing, setDraftName }),
   };
 }

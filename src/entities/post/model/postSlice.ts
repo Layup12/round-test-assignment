@@ -1,4 +1,4 @@
-import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+import { createEntityAdapter, createSlice, nanoid } from '@reduxjs/toolkit';
 
 export interface PostEntity {
   id: string;
@@ -13,12 +13,22 @@ export const postSlice = createSlice({
   name: 'posts',
   initialState: postAdapter.getInitialState(),
   reducers: {
-    addOne: postAdapter.addOne,
-    setAll: postAdapter.setAll,
-    removeOne: postAdapter.removeOne,
+    addPost: {
+      reducer: postAdapter.addOne,
+      prepare: (params: { authorId: string; text: string }) => ({
+        payload: {
+          id: nanoid(),
+          authorId: params.authorId,
+          text: params.text,
+          createdAt: new Date().toISOString(),
+        },
+      }),
+    },
+    setPosts: postAdapter.setAll,
+    removePost: postAdapter.removeOne,
   },
 });
 
-export const { addOne: addPost, setAll: setPosts, removeOne: removePost } = postSlice.actions;
+export const { addPost, setPosts, removePost } = postSlice.actions;
 
 export const { selectById: selectPostById, selectAll: selectAllPosts } = postAdapter.getSelectors();

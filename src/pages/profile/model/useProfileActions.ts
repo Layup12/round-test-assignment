@@ -1,7 +1,5 @@
 import { useAppDispatch } from '@app/store';
 import { addFollow, addPost, clearCurrentUser, removeFollow, renameUserIfUnique } from '@entities';
-import { nanoid } from '@reduxjs/toolkit';
-import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface UseProfileActionsParams {
@@ -27,7 +25,7 @@ export function useProfileActions({
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const handleToggleFollow = useCallback(() => {
+  const handleToggleFollow = () => {
     if (!userId || !currentUserId || isOwnProfile) {
       return;
     }
@@ -45,48 +43,38 @@ export function useProfileActions({
         }),
       );
     }
-  }, [currentUserId, dispatch, isFollowing, isOwnProfile, userId]);
+  };
 
-  const handleCreatePost = useCallback(
-    (text: string) => {
-      if (!currentUserId || !isOwnProfile) {
-        return;
-      }
+  const handleCreatePost = (text: string) => {
+    if (!currentUserId || !isOwnProfile) {
+      return;
+    }
 
-      dispatch(
-        addPost({
-          id: nanoid(),
-          authorId: currentUserId,
-          text,
-          createdAt: new Date().toISOString(),
-        }),
-      );
-    },
-    [currentUserId, dispatch, isOwnProfile],
-  );
+    dispatch(
+      addPost({
+        authorId: currentUserId,
+        text,
+      }),
+    );
+  };
 
-  const handleLogout = useCallback(() => {
+  const handleLogout = () => {
     dispatch(clearCurrentUser());
     navigate('/auth', { replace: true });
-  }, [dispatch, navigate]);
+  };
 
-  const handleChangeName = useCallback(
-    (nextName: string) => {
-      const trimmed = nextName.trim();
+  const handleChangeName = (nextName: string) => {
+    if (!currentUserId || !isOwnProfile) {
+      return;
+    }
 
-      if (!currentUserId || !isOwnProfile || trimmed.length < 4) {
-        return;
-      }
-
-      dispatch(
-        renameUserIfUnique({
-          id: currentUserId,
-          name: trimmed,
-        }),
-      );
-    },
-    [currentUserId, dispatch, isOwnProfile],
-  );
+    dispatch(
+      renameUserIfUnique({
+        id: currentUserId,
+        name: nextName,
+      }),
+    );
+  };
 
   return {
     handleToggleFollow,

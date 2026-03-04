@@ -32,4 +32,28 @@ export default defineConfig([
       'simple-import-sort/exports': 'error',
     },
   },
+  {
+    files: ['**/*.ts'],
+    rules: {
+      'max-lines-per-function': [
+        'error',
+        {
+          max: 60,
+          skipBlankLines: true,
+        },
+      ],
+    },
+  },
+  {
+    files: ['**/*.tsx'],
+    rules: {
+      'max-lines-per-function': [
+        'error',
+        {
+          max: 100,
+          skipBlankLines: true,
+        },
+      ],
+    },
+  },
 ]);

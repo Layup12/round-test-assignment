@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 interface UseProfileNavigationResult {
@@ -12,30 +11,29 @@ export function useProfileNavigation(userId: string | undefined): UseProfileNavi
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handleGoBack = useCallback(() => {
+  const handleGoBack = () => {
     if (location.state?.fromFollowList) {
       navigate(-1);
       return;
     }
-
     navigate('/feed');
-  }, [location.state, navigate]);
+  };
 
-  const handleFollowersClick = useCallback(() => {
+  const handleFollowersClick = () => {
     if (!userId) {
       return;
     }
 
     navigate(`/profile/${userId}/followers`);
-  }, [navigate, userId]);
+  };
 
-  const handleFollowingClick = useCallback(() => {
+  const handleFollowingClick = () => {
     if (!userId) {
       return;
     }
 
     navigate(`/profile/${userId}/following`);
-  }, [navigate, userId]);
+  };
 
   const backButtonLabel = location.state?.fromFollowList ? 'Назад' : 'В ленту';
 

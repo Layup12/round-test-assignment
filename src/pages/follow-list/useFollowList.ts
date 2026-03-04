@@ -25,10 +25,7 @@ export function useFollowList(type: FollowListType): UseFollowListResult {
 
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
-  const usersById = useMemo(
-    () => Object.fromEntries(allUsers.map((user) => [user.id, user] as const)),
-    [allUsers],
-  );
+  const usersById = Object.fromEntries(allUsers.map((user) => [user.id, user] as const));
 
   const items = useMemo(() => {
     if (!userId) {

@@ -1,4 +1,4 @@
-import { createEntityAdapter, createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import { createEntityAdapter, createSlice, nanoid, type PayloadAction } from '@reduxjs/toolkit';
 
 export interface UserEntity {
   id: string;
@@ -11,8 +11,16 @@ export const userSlice = createSlice({
   name: 'users',
   initialState: userAdapter.getInitialState(),
   reducers: {
-    addOne: userAdapter.addOne,
-    setAll: userAdapter.setAll,
+    addUser: {
+      reducer: userAdapter.addOne,
+      prepare: (name: string) => ({
+        payload: {
+          id: nanoid(),
+          name,
+        },
+      }),
+    },
+    setUsers: userAdapter.setAll,
     updateOne: userAdapter.updateOne,
     renameUserIfUnique: (
       state,
@@ -46,6 +54,6 @@ export const userSlice = createSlice({
   },
 });
 
-export const { addOne: addUser, setAll: setUsers, renameUserIfUnique } = userSlice.actions;
+export const { addUser, setUsers, renameUserIfUnique } = userSlice.actions;
 
 export const { selectById: selectUserById, selectAll: selectAllUsers } = userAdapter.getSelectors();

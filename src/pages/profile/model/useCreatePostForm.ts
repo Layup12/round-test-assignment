@@ -1,5 +1,5 @@
 import type { FormEvent } from 'react';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 
 interface UseCreatePostFormParams {
   onSubmit: (text: string) => void;
@@ -18,23 +18,20 @@ export function useCreatePostForm({ onSubmit }: UseCreatePostFormParams): UseCre
   const trimmed = text.trim();
   const isValid = trimmed.length > 0;
 
-  const handleChange = useCallback((value: string) => {
+  const handleChange = (value: string) => {
     setText(value);
-  }, []);
+  };
 
-  const handleSubmit = useCallback(
-    (event: FormEvent<HTMLFormElement>) => {
-      event.preventDefault();
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
-      if (!isValid) {
-        return;
-      }
+    if (!isValid) {
+      return;
+    }
 
-      onSubmit(trimmed);
-      setText('');
-    },
-    [isValid, onSubmit, trimmed],
-  );
+    onSubmit(trimmed);
+    setText('');
+  };
 
   return {
     text,
