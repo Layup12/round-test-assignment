@@ -1,8 +1,14 @@
 import { selectCurrentUserId } from '@entities';
-import { AuthPage, FeedPage, FollowListPage, ProfilePage } from '@pages';
-import type { PropsWithChildren } from 'react';
+import { lazy, type PropsWithChildren, Suspense } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
+
+const AuthPage = lazy(() => import('@pages/auth').then((module) => ({ default: module.AuthPage })));
+const FeedPage = lazy(() => import('@pages/feed').then((module) => ({ default: module.FeedPage })));
+const ProfilePage = lazy(() => import('@pages/profile').then((module) => ({ default: module.ProfilePage })));
+const FollowListPage = lazy(() =>
+  import('@pages/follow-list').then((module) => ({ default: module.FollowListPage })),
+);
 
 function useCurrentUserId() {
   return useSelector(selectCurrentUserId);
@@ -38,51 +44,53 @@ function RootRedirect() {
 
 export function AppRouter() {
   return (
-    <Routes>
-      <Route path="/" element={<RootRedirect />} />
+    <Suspense fallback={null}>
+      <Routes>
+        <Route path="/" element={<RootRedirect />} />
 
-      <Route
-        path="/auth"
-        element={
-          <RedirectIfAuthenticated>
-            <AuthPage />
-          </RedirectIfAuthenticated>
-        }
-      />
+        <Route
+          path="/auth"
+          element={
+            <RedirectIfAuthenticated>
+              <AuthPage />
+            </RedirectIfAuthenticated>
+          }
+        />
 
-      <Route
-        path="/feed"
-        element={
-          <RequireAuth>
-            <FeedPage />
-          </RequireAuth>
-        }
-      />
-      <Route
-        path="/profile/:userId"
-        element={
-          <RequireAuth>
-            <ProfilePage />
-          </RequireAuth>
-        }
-      />
-      <Route
-        path="/profile/:userId/followers"
-        element={
-          <RequireAuth>
-            <FollowListPage type="followers" />
-          </RequireAuth>
-        }
-      />
-      <Route
-        path="/profile/:userId/following"
-        element={
-          <RequireAuth>
-            <FollowListPage type="following" />
-          </RequireAuth>
-        }
-      />
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+        <Route
+          path="/feed"
+          element={
+            <RequireAuth>
+              <FeedPage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/profile/:userId"
+          element={
+            <RequireAuth>
+              <ProfilePage />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/profile/:userId/followers"
+          element={
+            <RequireAuth>
+              <FollowListPage type="followers" />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/profile/:userId/following"
+          element={
+            <RequireAuth>
+              <FollowListPage type="following" />
+            </RequireAuth>
+          }
+        />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </Suspense>
   );
 }
