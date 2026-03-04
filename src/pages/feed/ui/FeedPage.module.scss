@@ -1,0 +1,19 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.content {
+  flex: 1;
+  min-height: 0;
+}
+
+.feedList {
+  flex: 1;
+  min-height: 0;
+}
+
+.profileButtonRow {
+  width: 100%;
+}

@@ -1,4 +1,4 @@
-import { authSlice, userSlice } from '@entities';
+import { authSlice, followSlice, postSlice, userSlice } from '@entities';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -6,6 +6,8 @@ import storage from 'redux-persist/lib/storage';
 const rootReducer = combineReducers({
   auth: authSlice.reducer,
   users: userSlice.reducer,
+  posts: postSlice.reducer,
+  follows: followSlice.reducer,
 });
 
 const persistConfig = {

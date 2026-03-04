@@ -1,5 +1,5 @@
 import { selectCurrentUserId } from '@entities';
-import { AuthPage, FeedPage } from '@pages';
+import { AuthPage, FeedPage, FollowListPage, ProfilePage } from '@pages';
 import type { PropsWithChildren } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
@@ -55,6 +55,30 @@ export function AppRouter() {
         element={
           <RequireAuth>
             <FeedPage />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/profile/:userId"
+        element={
+          <RequireAuth>
+            <ProfilePage />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/profile/:userId/followers"
+        element={
+          <RequireAuth>
+            <FollowListPage type="followers" />
+          </RequireAuth>
+        }
+      />
+      <Route
+        path="/profile/:userId/following"
+        element={
+          <RequireAuth>
+            <FollowListPage type="following" />
           </RequireAuth>
         }
       />

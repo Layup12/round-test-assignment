@@ -1,0 +1,20 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.content {
+  flex: 1;
+  min-height: 0;
+}
+
+.postsSection {
+  flex: 1;
+  min-height: 0;
+}
+
+.postsList {
+  flex: 1;
+  min-height: 0;
+}
