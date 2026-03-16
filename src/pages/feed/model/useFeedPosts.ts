@@ -2,9 +2,9 @@ import { useAppSelector } from '@app/store';
 import {
   type PostEntity,
   selectAllFollows,
+  selectAllLikes,
   selectAllPosts,
   selectAllUsers,
-  selectCurrentUserId,
   type UserEntity,
 } from '@entities';
 import { useMemo, useState } from 'react';
@@ -14,25 +14,25 @@ export type FeedTab = 'all' | 'following';
 const PAGE_SIZE = 20;
 
 interface UseFeedPostsResult {
-  currentUserId: string | null;
   usersById: Record<string, UserEntity>;
   posts: PostEntity[];
+  likes: ReturnType<typeof selectAllLikes>;
   activeTab: FeedTab;
   setActiveTab: (tab: FeedTab) => void;
   loadMore: () => void;
   hasMore: boolean;
 }
 
-export function useFeedPosts(): UseFeedPostsResult {
-  const currentUserId = useAppSelector(selectCurrentUserId);
+export function useFeedPosts(currentUserId: string | null): UseFeedPostsResult {
   const users = useAppSelector((state) => selectAllUsers(state.users));
   const posts = useAppSelector((state) => selectAllPosts(state.posts));
   const follows = useAppSelector((state) => selectAllFollows(state.follows));
+  const likes = useAppSelector((state) => selectAllLikes(state.likes));
 
   const [activeTab, setActiveTabState] = useState<FeedTab>('all');
   const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
-  const usersById = Object.fromEntries(users.map((user) => [user.id, user]));
+  const usersById = useMemo(() => Object.fromEntries(users.map((user) => [user.id, user] as const)), [users]);
 
   const followingIds = useMemo(() => {
     if (!currentUserId) {
@@ -74,9 +74,9 @@ export function useFeedPosts(): UseFeedPostsResult {
   };
 
   return {
-    currentUserId,
     usersById,
     posts: visiblePosts,
+    likes,
     activeTab,
     setActiveTab,
     loadMore,

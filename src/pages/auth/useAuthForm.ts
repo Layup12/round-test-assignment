@@ -1,5 +1,5 @@
-import { useAppDispatch, useAppSelector } from '@app/store';
-import { addUser, selectAllUsers, setCurrentUser } from '@entities';
+import { useAppDispatch } from '@app/store';
+import { loginByName } from '@entities';
 import type { SubmitEvent } from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -10,7 +10,6 @@ const MAX_LENGTH = 12;
 export function useAuthForm() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const users = useAppSelector((state) => selectAllUsers(state.users));
 
   const [name, setName] = useState('');
 
@@ -24,19 +23,7 @@ export function useAuthForm() {
       return;
     }
 
-    const existingUser = users.find((user) => user.name === trimmedName);
-
-    let userId: string;
-
-    if (existingUser) {
-      userId = existingUser.id;
-    } else {
-      const action = addUser(trimmedName);
-      dispatch(action);
-      userId = action.payload.id;
-    }
-
-    dispatch(setCurrentUser(userId));
+    dispatch(loginByName(trimmedName));
     navigate('/feed', { replace: true });
   };
 

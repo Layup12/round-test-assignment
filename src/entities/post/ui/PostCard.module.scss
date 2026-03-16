@@ -5,3 +5,20 @@
 .authorClickable {
   cursor: pointer;
 }
+
+.likeButton {
+  min-width: 44px;
+  min-height: 44px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--mantine-color-gray-4);
+  background-color: var(--mantine-color-body);
+  color: var(--mantine-color-text);
+  cursor: pointer;
+}
+
+.likeButtonActive {
+  border-color: var(--mantine-color-blue-6);
+  background-color: var(--mantine-color-blue-0);
+  color: var(--mantine-color-blue-7);
+}

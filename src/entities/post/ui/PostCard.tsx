@@ -9,9 +9,19 @@ interface PostCardProps {
   post: PostEntity;
   author?: UserEntity;
   onAuthorClick?: () => void;
+  likesCount?: number;
+  isLikedByCurrentUser?: boolean;
+  onToggleLike?: () => void;
 }
 
-export function PostCard({ post, author, onAuthorClick }: PostCardProps) {
+export function PostCard({
+  post,
+  author,
+  onAuthorClick,
+  likesCount = 0,
+  isLikedByCurrentUser = false,
+  onToggleLike,
+}: PostCardProps) {
   const createdAt = new Date(post.createdAt);
 
   return (
@@ -30,6 +40,19 @@ export function PostCard({ post, author, onAuthorClick }: PostCardProps) {
         </Group>
 
         <Text>{post.text}</Text>
+
+        <Group justify="flex-end" gap="xs">
+          <button
+            type="button"
+            className={clsx(classes.likeButton, isLikedByCurrentUser && classes.likeButtonActive)}
+            onClick={onToggleLike}
+          >
+            {isLikedByCurrentUser ? 'Убрать лайк' : 'Лайк'}
+          </button>
+          <Text size="sm" c="dimmed">
+            {likesCount}
+          </Text>
+        </Group>
       </Stack>
     </Card>
   );

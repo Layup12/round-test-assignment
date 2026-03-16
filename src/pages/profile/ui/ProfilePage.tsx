@@ -1,5 +1,5 @@
 import { useAppSelector } from '@app/store';
-import { VirtualizedPostList } from '@entities';
+import { selectAllLikes, VirtualizedPostList } from '@entities';
 import { Box, Button, Container, Group, Modal, Stack, Text, Title } from '@mantine/core';
 import { useParams } from 'react-router-dom';
 
@@ -17,18 +17,18 @@ import classes from './ProfilePage.module.scss';
 export function ProfilePage() {
   const { userId } = useParams<{ userId: string }>();
   const { currentUserId } = useAppSelector((state) => state.auth);
+  const likes = useAppSelector((state) => selectAllLikes(state.likes));
   const { profileUser, isOwnProfile, followersCount, followingCount, isFollowing } =
     useProfileIdentity(userId);
   const { handleGoBack, handleFollowersClick, handleFollowingClick, backButtonLabel } =
     useProfileNavigation(userId);
 
   const { posts, hasMore, loadMore } = useProfilePosts(userId);
-  const { handleToggleFollow, handleCreatePost, handleLogout, handleChangeName } = useProfileActions({
-    userId,
-    currentUserId,
-    isOwnProfile,
-    isFollowing,
-  });
+  const { handleToggleFollow, handleToggleLike, handleCreatePost, handleLogout, handleChangeName } =
+    useProfileActions({
+      userId,
+      isOwnProfile,
+    });
 
   const { isOpen, open, close, handleSubmitAndClose } = useCreatePostModal({
     onSubmit: handleCreatePost,
@@ -82,6 +82,9 @@ export function ProfilePage() {
                 hasMore={hasMore}
                 loadMore={loadMore}
                 getAuthor={() => profileUser}
+                currentUserId={currentUserId}
+                likes={likes}
+                onToggleLike={({ id }) => handleToggleLike(id)}
               />
             )}
           </Box>

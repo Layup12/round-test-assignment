@@ -1,4 +1,4 @@
-export { authSlice, clearCurrentUser, selectCurrentUserId, setCurrentUser } from './auth';
+export { authSlice, clearCurrentUser, loginByName, selectCurrentUserId, setCurrentUser } from './auth';
 export {
   addFollow,
   type FollowEntity,
@@ -7,7 +7,17 @@ export {
   selectAllFollows,
   selectFollowById,
   selectFollowIds,
+  toggleFollowByUserId,
 } from './follow';
+export {
+  type LikeEntity,
+  likeSlice,
+  selectAllLikes,
+  selectLikeById,
+  selectLikeIds,
+  toggleLike,
+  toggleLikeForPost,
+} from './like';
 export {
   addPost,
   type PostEntity,

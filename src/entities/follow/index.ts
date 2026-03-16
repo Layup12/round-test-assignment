@@ -1,1 +1,1 @@
-export * from './followSlice';
+export * from './model';

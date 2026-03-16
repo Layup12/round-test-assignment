@@ -1,6 +1,7 @@
 import { type CSSProperties, useEffect, useRef } from 'react';
 import { AutoSizer, CellMeasurer, CellMeasurerCache, List } from 'react-virtualized';
 
+import type { LikeEntity } from '../../like/model/likeSlice';
 import type { UserEntity } from '../../user/userSlice';
 import type { PostEntity } from '../model';
 import { PostCard } from './PostCard';
@@ -12,6 +13,9 @@ interface VirtualizedPostListProps {
   loadMore: () => void;
   getAuthor: (post: PostEntity) => UserEntity | undefined;
   onAuthorClick?: (post: PostEntity) => void;
+  likes?: LikeEntity[];
+  currentUserId?: string | null;
+  onToggleLike?: (post: PostEntity) => void;
 }
 
 interface ListInstance {
@@ -25,6 +29,9 @@ export function VirtualizedPostList({
   loadMore,
   getAuthor,
   onAuthorClick,
+  likes = [],
+  currentUserId,
+  onToggleLike,
 }: VirtualizedPostListProps) {
   const cacheRef = useRef(
     new CellMeasurerCache({
@@ -58,6 +65,11 @@ export function VirtualizedPostList({
     const post = posts[index];
     const author = getAuthor(post);
 
+    const postLikes = likes.filter((like) => like.postId === post.id);
+    const likesCount = postLikes.length;
+    const isLikedByCurrentUser =
+      Boolean(currentUserId) && postLikes.some((like) => like.userId === currentUserId);
+
     return (
       <CellMeasurer key={key} cache={cacheRef.current} columnIndex={0} rowIndex={index} parent={parent}>
         {() => (
@@ -66,6 +78,9 @@ export function VirtualizedPostList({
               post={post}
               author={author}
               onAuthorClick={onAuthorClick ? () => onAuthorClick(post) : undefined}
+              likesCount={likesCount}
+              isLikedByCurrentUser={isLikedByCurrentUser}
+              onToggleLike={onToggleLike ? () => onToggleLike(post) : undefined}
             />
           </div>
         )}

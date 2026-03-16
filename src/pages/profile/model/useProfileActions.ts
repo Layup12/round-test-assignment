@@ -1,16 +1,16 @@
-import { useAppDispatch } from '@app/store';
-import { addFollow, addPost, clearCurrentUser, removeFollow, renameUserIfUnique } from '@entities';
+import { useAppDispatch, useAppSelector } from '@app/store';
+import { addPost, clearCurrentUser, renameUserIfUnique, toggleFollowByUserId } from '@entities';
+import { useToggleLike } from '@features';
 import { useNavigate } from 'react-router-dom';
 
 interface UseProfileActionsParams {
   userId: string | undefined;
-  currentUserId: string | null;
   isOwnProfile: boolean;
-  isFollowing: boolean;
 }
 
 interface UseProfileActionsResult {
   handleToggleFollow: () => void;
+  handleToggleLike: (postId: string) => void;
   handleCreatePost: (text: string) => void;
   handleLogout: () => void;
   handleChangeName: (nextName: string) => void;
@@ -18,31 +18,19 @@ interface UseProfileActionsResult {
 
 export function useProfileActions({
   userId,
-  currentUserId,
   isOwnProfile,
-  isFollowing,
 }: UseProfileActionsParams): UseProfileActionsResult {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { currentUserId } = useAppSelector((state) => state.auth);
+  const { handleToggleLike } = useToggleLike();
 
   const handleToggleFollow = () => {
-    if (!userId || !currentUserId || isOwnProfile) {
+    if (!userId || isOwnProfile) {
       return;
     }
 
-    const followId = `${currentUserId}_${userId}`;
-
-    if (isFollowing) {
-      dispatch(removeFollow(followId));
-    } else {
-      dispatch(
-        addFollow({
-          id: followId,
-          followerId: currentUserId,
-          followingId: userId,
-        }),
-      );
-    }
+    dispatch(toggleFollowByUserId(userId));
   };
 
   const handleCreatePost = (text: string) => {
@@ -78,6 +66,7 @@ export function useProfileActions({
 
   return {
     handleToggleFollow,
+    handleToggleLike,
     handleCreatePost,
     handleLogout,
     handleChangeName,
