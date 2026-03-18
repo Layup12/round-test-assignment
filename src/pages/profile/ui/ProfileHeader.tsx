@@ -1,15 +1,10 @@
-import {
-  Button,
-  Group,
-  Stack,
-  Text,
-  // TextInput,
-  Title,
-} from '@mantine/core';
+import { Button, Group, Stack, Text } from '@mantine/core';
 import { getWordPlural } from '@shared/lib';
+import { Input } from '@shared/ui';
 import type { KeyboardEvent, MouseEventHandler } from 'react';
 
 import { useEditableProfileName } from '../model';
+import classes from './ProfileHeader.module.scss';
 
 interface ProfileHeaderProps {
   name: string;
@@ -58,43 +53,50 @@ export function ProfileHeader({
 
   return (
     <Stack gap="xs">
-      <Group justify="space-between">
+      <Group justify="space-between" gap="xs" wrap="nowrap">
         {canEditName ? (
           isEditing ? (
-            <input
-              autoFocus
+            <Input
+              id="name"
+              name="name"
+              aria-label="Имя пользователя"
+              placeholder="Введите имя"
               value={draftName}
               onChange={({ currentTarget: { value } }) => handleChange(value)}
-              style={{ width: '50%', height: 44 }}
               onBlur={handleBlur}
               onKeyDown={handleNameKeyDown}
+              classes={{ root: classes.nameInputRoot }}
+              maxLength={12}
+              autoFocus
+              canClear
             />
           ) : (
-            // <TextInput
-            //   value={draftName}
-            //   maxLength={12}
-            //   autoFocus
-            //   onChange={({ currentTarget: { value } }) => handleChange(value)}
-            //   onBlur={handleBlur}
-            //   onKeyDown={handleNameKeyDown}
-            // />
             <Button
               variant="subtle"
               onClick={handleStartEdit as MouseEventHandler<HTMLButtonElement>}
               aria-label="Изменить имя"
+              className={classes.nameButton}
             >
-              <Title order={2}>{name}</Title>
+              <Text fw={600} size="lg" className="ellipsisText">
+                {name}
+              </Text>
             </Button>
           )
         ) : (
-          <Title order={2}>{name}</Title>
+          <Text fw={600} size="lg" className="ellipsisText">
+            {name}
+          </Text>
         )}
         {isOwnProfile ? (
-          <Button variant="outline" onClick={onLogout}>
+          <Button variant="outline" onClick={onLogout} className={classes.followButton}>
             Выйти
           </Button>
         ) : (
-          <Button variant={isFollowing ? 'light' : 'filled'} onClick={onToggleFollow}>
+          <Button
+            variant={isFollowing ? 'light' : 'filled'}
+            onClick={onToggleFollow}
+            className={classes.followButton}
+          >
             {isFollowing ? 'Отписаться' : 'Подписаться'}
           </Button>
         )}

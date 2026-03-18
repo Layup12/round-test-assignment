@@ -1,9 +1,12 @@
 import type { UserEntity } from '@entities';
 import { Button, Card, Group, Stack, Text } from '@mantine/core';
+import { formatPostDate } from '@shared/lib';
 import { UserLink } from '@shared/ui';
 import { IconHeart, IconHeartFilled } from '@tabler/icons-react';
+import cn from 'classnames';
 
 import type { PostEntity } from '../model';
+import classes from './PostCard.module.scss';
 
 interface PostCardProps {
   post: PostEntity;
@@ -22,17 +25,17 @@ export function PostCard({
   isLikedByCurrentUser = false,
   onToggleLike,
 }: PostCardProps) {
-  const createdAt = new Date(post.createdAt);
-
   return (
     <Card withBorder shadow="xs" radius="md">
       <Stack gap={0}>
-        <Group justify="space-between" align="center">
+        <Group justify="space-between" align="center" wrap="nowrap">
           <UserLink onClick={onAuthorClick}>{author?.name ?? 'Неизвестный пользователь'}</UserLink>
-          <Text c="dimmed">{createdAt.toLocaleString()}</Text>
+          <Text c="dimmed" className="ellipsisText" style={{ flexShrink: 0 }}>
+            {formatPostDate(post.createdAt)}
+          </Text>
         </Group>
 
-        <Text>{post.text}</Text>
+        <Text className={cn(classes.text, 'ellipsisText')}>{post.text}</Text>
 
         <Group justify="flex-end" gap="xs" mt="md">
           <Button

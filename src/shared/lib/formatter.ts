@@ -12,3 +12,16 @@ export function getWordPlural(count: number, one: string, few: string, many: str
 
   return many;
 }
+
+const postDateFormatter = new Intl.DateTimeFormat('ru-RU', {
+  day: '2-digit',
+  month: '2-digit',
+  year: '2-digit',
+  hour: '2-digit',
+  minute: '2-digit',
+});
+
+export function formatPostDate(createdAt: Date | string | number): string {
+  const date = createdAt instanceof Date ? createdAt : new Date(createdAt);
+  return postDateFormatter.format(date);
+}

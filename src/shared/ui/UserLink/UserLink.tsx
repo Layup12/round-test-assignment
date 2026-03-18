@@ -10,7 +10,7 @@ interface UserLinkProps {
 export function UserLink({ onClick, children }: PropsWithChildren<UserLinkProps>) {
   return (
     <UnstyledButton onClick={onClick} aria-label="Профиль пользователя" className={classes.root}>
-      <Text fw={600} c="blue">
+      <Text fw={600} c="blue" className="ellipsisText">
         {children}
       </Text>
     </UnstyledButton>

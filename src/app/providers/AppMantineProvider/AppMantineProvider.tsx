@@ -1,6 +1,6 @@
 import '@mantine/core/styles.css';
 
-import { createTheme, MantineProvider } from '@mantine/core';
+import { Button, createTheme, MantineProvider } from '@mantine/core';
 import type { PropsWithChildren } from 'react';
 
 const theme = createTheme({
@@ -12,12 +12,25 @@ const theme = createTheme({
     xl: '1440px',
   },
   components: {
-    Button: {
+    Button: Button.extend({
+      vars: (_, props) => {
+        if (props.size === 'md') {
+          return {
+            root: {
+              '--button-height': '44px',
+              '--button-padding-x': '12px',
+              '--button-fz': '18px',
+            },
+          };
+        }
+
+        return { root: {} };
+      },
       defaultProps: {
-        size: 'lg',
+        size: 'md',
         radius: 'md',
       },
-    },
+    }),
     ActionIcon: {
       defaultProps: {
         size: 'lg',
@@ -34,7 +47,6 @@ const theme = createTheme({
     },
     Container: {
       defaultProps: {
-        size: 'xs',
         px: 'md',
         py: 'lg',
       },

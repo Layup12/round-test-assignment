@@ -1,0 +1,36 @@
+.root {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+  height: 44px;
+  box-sizing: border-box;
+  padding-left: 12px;
+  border: 1px solid var(--mantine-color-gray-2);
+  border-radius: var(--mantine-radius-md);
+
+  &:hover {
+    border-color: var(--mantine-primary-color-hover);
+  }
+
+  &:focus,
+  &:focus-visible {
+    outline-color: var(--mantine-primary-color-filled) !important;
+  }
+}
+
+.inputWithClear {
+  padding-right: 56px;
+}
+
+.clearButton {
+  position: absolute;
+  right: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
