@@ -11,13 +11,13 @@ export function CreatePostForm({ onSubmit }: CreatePostFormProps) {
 
   return (
     <form name="create-post-form" aria-label="Форма создания поста" onSubmit={handleSubmit}>
-      <Stack gap="xs">
+      <Stack gap="xs" pt="xs">
         <textarea
           autoFocus
           value={text}
           onChange={({ currentTarget: { value } }) => handleChange(value)}
           placeholder="Напишите, чем хотите поделиться..."
-          style={{ width: '100%', height: 100, padding: 12 }}
+          style={{ minWidth: '100%', maxWidth: '100%', minHeight: 100, maxHeight: 150, padding: 12 }}
         />
         {/* <Textarea
           id="create-post-text"

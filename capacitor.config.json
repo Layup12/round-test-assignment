@@ -1,0 +1,15 @@
+{
+  "appId": "com.example.newround",
+  "appName": "NewRoundHybrid",
+  "webDir": "dist",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0,
+      "launchAutoHide": false,
+      "launchFadeOutDuration": 400
+    },
+    "Keyboard": {
+      "resize": "native"
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import type { UserEntity } from '@entities';
 import { Button, Card, Group, Stack, Text } from '@mantine/core';
 import { UserLink } from '@shared/ui';
+import { IconHeart, IconHeartFilled } from '@tabler/icons-react';
 
 import type { PostEntity } from '../model';
 
@@ -25,21 +26,23 @@ export function PostCard({
 
   return (
     <Card withBorder shadow="xs" radius="md">
-      <Stack gap="xs">
-        <Group justify="space-between" align="flex-start">
+      <Stack gap={0}>
+        <Group justify="space-between" align="center">
           <UserLink onClick={onAuthorClick}>{author?.name ?? 'Неизвестный пользователь'}</UserLink>
           <Text c="dimmed">{createdAt.toLocaleString()}</Text>
         </Group>
 
         <Text>{post.text}</Text>
 
-        <Group justify="flex-end" gap="xs">
-          <Button variant="subtle" onClick={onToggleLike}>
-            {isLikedByCurrentUser ? 'Убрать лайк' : 'Лайк'}
-          </Button>
-          <Text size="sm" c="dimmed">
+        <Group justify="flex-end" gap="xs" mt="md">
+          <Button
+            variant="subtle"
+            color={isLikedByCurrentUser ? 'red' : 'gray'}
+            onClick={onToggleLike}
+            leftSection={isLikedByCurrentUser ? <IconHeartFilled size={24} /> : <IconHeart size={24} />}
+          >
             {likesCount}
-          </Text>
+          </Button>
         </Group>
       </Stack>
     </Card>

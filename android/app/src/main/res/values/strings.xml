@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">NewRoundHybrid</string>
+    <string name="title_activity_main">NewRoundHybrid</string>
+    <string name="package_name">com.example.newround</string>
+    <string name="custom_url_scheme">com.example.newround</string>
+</resources>

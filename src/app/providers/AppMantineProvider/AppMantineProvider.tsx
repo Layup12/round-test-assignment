@@ -14,14 +14,14 @@ const theme = createTheme({
   components: {
     Button: {
       defaultProps: {
-        size: 'md',
+        size: 'lg',
         radius: 'md',
       },
-      styles: {
-        root: {
-          minHeight: '44px',
-          minWidth: '44px',
-        },
+    },
+    ActionIcon: {
+      defaultProps: {
+        size: 'lg',
+        radius: 'xl',
       },
     },
     Tabs: {
@@ -35,7 +35,8 @@ const theme = createTheme({
     Container: {
       defaultProps: {
         size: 'xs',
-        p: 'md',
+        px: 'md',
+        py: 'lg',
       },
       styles: {
         root: {
@@ -44,6 +45,14 @@ const theme = createTheme({
           flex: 1,
           width: '100%',
           boxSizing: 'border-box',
+        },
+      },
+    },
+    Modal: {
+      defaultProps: {
+        closeButtonProps: {
+          size: 'xl',
+          radius: 'xl',
         },
       },
     },

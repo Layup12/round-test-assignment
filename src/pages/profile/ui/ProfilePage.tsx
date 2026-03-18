@@ -1,6 +1,7 @@
 import { useAppSelector } from '@app/store';
 import { selectAllLikes, VirtualizedPostList } from '@entities';
-import { Box, Button, Container, Group, Modal, Stack, Text, Title } from '@mantine/core';
+import { ActionIcon, Box, Button, Container, Group, Modal, Stack, Text, Title } from '@mantine/core';
+import { IconPlus } from '@tabler/icons-react';
 import { useParams } from 'react-router-dom';
 
 import {
@@ -67,9 +68,15 @@ export function ProfilePage() {
           <Group justify="space-between" align="center">
             <Title order={3}>Посты</Title>
             {isOwnProfile && (
-              <Button variant="light" size="compact-xs" aria-label="Создать новый пост" onClick={open}>
-                <span aria-hidden="true">＋</span>
-              </Button>
+              <ActionIcon
+                variant="light"
+                size="xl"
+                radius="xl"
+                aria-label="Создать новый пост"
+                onClick={open}
+              >
+                <IconPlus size={18} stroke={2} />
+              </ActionIcon>
             )}
           </Group>
 
