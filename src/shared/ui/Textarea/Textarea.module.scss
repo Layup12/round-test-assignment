@@ -1,0 +1,36 @@
+.root {
+  position: relative;
+  display: inline-flex;
+  width: 100%;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 80px;
+  box-sizing: border-box;
+  padding: 8px 12px;
+  border: 1px solid var(--mantine-color-gray-2);
+  border-radius: var(--mantine-radius-md);
+  resize: vertical;
+
+  &:hover {
+    border-color: var(--mantine-primary-color-hover);
+  }
+
+  &:focus,
+  &:focus-visible {
+    outline-color: var(--mantine-primary-color-filled) !important;
+  }
+}
+
+.textareaWithClear {
+  padding-right: 56px;
+}
+
+.clearButton {
+  position: absolute;
+  right: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
