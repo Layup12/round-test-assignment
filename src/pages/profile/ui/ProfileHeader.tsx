@@ -101,13 +101,13 @@ export function ProfileHeader({
       </Group>
 
       <Group gap="md">
-        <Button variant="subtle" size="compact-sm" onClick={onFollowersClick}>
+        <Button variant="subtle" onClick={onFollowersClick}>
           <Text fw={500} mr={4}>
             {followersCount}
           </Text>
           <Text c="dimmed">{getWordPlural(followersCount, 'подписчик', 'подписчика', 'подписчиков')}</Text>
         </Button>
-        <Button variant="subtle" size="compact-sm" onClick={onFollowingClick}>
+        <Button variant="subtle" onClick={onFollowingClick}>
           <Text fw={500} mr={4}>
             {followingCount}
           </Text>

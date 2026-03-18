@@ -17,3 +17,11 @@ Thumbs.db
 # Env
 .env
 .env.local
+
+# Tech specifications
+.spec
+docs
+assets
+
+# Pnpm
+.pnpm-store
