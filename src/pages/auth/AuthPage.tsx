@@ -1,10 +1,5 @@
-import {
-  Button,
-  Container,
-  Stack,
-  // TextInput,
-  Title,
-} from '@mantine/core';
+import { Button, Container, Stack, Title } from '@mantine/core';
+import { Input } from '@shared/ui';
 
 import classes from './AuthPage.module.scss';
 import { useAuthForm } from './useAuthForm';
@@ -23,22 +18,18 @@ export function AuthPage() {
         >
           <Stack>
             <Title ta="center">Введите имя</Title>
-            <input
-              autoFocus
-              value={name}
-              onChange={({ currentTarget: { value } }) => setName(value)}
-              style={{ width: '100%', height: 44 }}
-            />
-            {/* <TextInput
+            <Input
               id="auth-name"
               name="name"
+              aria-label="Имя пользователя"
+              placeholder="Например, Валерий"
               value={name}
-              maxLength={12}
-              placeholder="Введите имя"
               onChange={({ currentTarget: { value } }) => setName(value)}
+              maxLength={12}
               autoFocus
-              w={300}
-            /> */}
+              canClear
+            />
+
             <Button type="submit" disabled={!isValid}>
               Продолжить
             </Button>

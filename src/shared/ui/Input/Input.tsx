@@ -8,7 +8,7 @@ import classesModule from './Input.module.scss';
 
 type NativeInputProps = InputHTMLAttributes<HTMLInputElement>;
 
-export type InputProps = NativeInputProps & {
+type InputProps = NativeInputProps & {
   canClear?: boolean;
   classes?: {
     root?: string;
@@ -17,7 +17,7 @@ export type InputProps = NativeInputProps & {
 };
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
-  { canClear = false, value, onChange, classes, className, ...rest },
+  { canClear = false, value, onChange, maxLength, classes, className, ...rest },
   ref,
 ) {
   const handleClear = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -39,12 +39,37 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     }
   };
 
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (!onChange) return;
+
+    const nextValue = event.currentTarget.value;
+
+    if (typeof maxLength === 'number' && nextValue.length > maxLength) {
+      const target = {
+        ...event.currentTarget,
+        value: nextValue.slice(0, maxLength),
+      } as EventTarget & HTMLInputElement;
+
+      const syntheticEvent: ChangeEvent<HTMLInputElement> = {
+        ...event,
+        target,
+        currentTarget: target,
+      };
+
+      onChange(syntheticEvent);
+      return;
+    }
+
+    onChange(event);
+  };
+
   return (
     <div className={cn(classesModule.root, className, classes?.root)}>
       <input
         ref={ref}
         value={value}
-        onChange={onChange}
+        onChange={handleChange}
+        maxLength={maxLength}
         className={cn(classesModule.input, canClear && classesModule.inputWithClear, classes?.input)}
         {...rest}
       />

@@ -8,7 +8,7 @@ import classes from './Textarea.module.scss';
 
 type NativeTextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement>;
 
-export type TextareaProps = NativeTextareaProps & {
+type TextareaProps = NativeTextareaProps & {
   canClear?: boolean;
   classes?: {
     root?: string;

@@ -1,1 +1,1 @@
-export { getWordPlural } from './formatter';
+export { formatPostDate, getWordPlural } from './formatter';
