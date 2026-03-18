@@ -1,4 +1,4 @@
-import { Button, Group, Stack, Textarea } from '@mantine/core';
+import { Button, Group, Stack } from '@mantine/core';
 
 import { useCreatePostForm } from '../model';
 
@@ -12,7 +12,14 @@ export function CreatePostForm({ onSubmit }: CreatePostFormProps) {
   return (
     <form name="create-post-form" aria-label="Форма создания поста" onSubmit={handleSubmit}>
       <Stack gap="xs">
-        <Textarea
+        <textarea
+          autoFocus
+          value={text}
+          onChange={({ currentTarget: { value } }) => handleChange(value)}
+          placeholder="Напишите, чем хотите поделиться..."
+          style={{ width: '100%', height: 100, padding: 12 }}
+        />
+        {/* <Textarea
           id="create-post-text"
           name="postText"
           value={text}
@@ -22,7 +29,7 @@ export function CreatePostForm({ onSubmit }: CreatePostFormProps) {
           placeholder="Напишите, чем хотите поделиться..."
           onChange={({ currentTarget: { value } }) => handleChange(value)}
           flex={1}
-        />
+        /> */}
 
         <Group justify="flex-end">
           <Button type="submit" disabled={!isValid}>

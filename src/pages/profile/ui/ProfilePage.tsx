@@ -36,9 +36,9 @@ export function ProfilePage() {
 
   if (!profileUser) {
     return (
-      <Container size="xs">
+      <Container>
         <Stack>
-          <Button variant="subtle" onClick={handleGoBack}>
+          <Button variant="light" onClick={handleGoBack}>
             Назад
           </Button>
           <Title order={3}>Пользователь не найден</Title>
@@ -48,7 +48,7 @@ export function ProfilePage() {
   }
 
   return (
-    <Container size="xs" py="md" h="100vh" className={classes.root}>
+    <Container>
       <Stack gap="md" className={classes.content}>
         <ProfileHeader
           name={profileUser.name}
@@ -108,7 +108,7 @@ export function ProfilePage() {
         )}
 
         <Box mt="auto">
-          <Button variant="subtle" fullWidth onClick={handleGoBack}>
+          <Button variant="light" fullWidth onClick={handleGoBack}>
             {backButtonLabel}
           </Button>
         </Box>

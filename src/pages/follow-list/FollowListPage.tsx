@@ -34,7 +34,7 @@ export function FollowListPage({ type }: FollowListPageProps) {
   };
 
   return (
-    <Container size="xs" py="md" h="100vh" className={classes.root}>
+    <Container>
       <Stack gap="md" className={classes.content}>
         <Title ta="center">{title}</Title>
 
@@ -66,7 +66,7 @@ export function FollowListPage({ type }: FollowListPageProps) {
         </Stack>
 
         <Box mt="auto">
-          <Button variant="subtle" fullWidth onClick={handleBack}>
+          <Button variant="light" fullWidth onClick={handleBack}>
             Назад
           </Button>
         </Box>

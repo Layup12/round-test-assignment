@@ -13,6 +13,7 @@ export default defineConfig({
       '@entities': path.resolve(__dirname, 'src/entities'),
       '@features': path.resolve(__dirname, 'src/features'),
       '@shared/lib': path.resolve(__dirname, 'src/shared/lib'),
+      '@shared/ui': path.resolve(__dirname, 'src/shared/ui'),
     },
   },
 });

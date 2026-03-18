@@ -1,4 +1,11 @@
-import { Button, Group, Stack, Text, TextInput, Title } from '@mantine/core';
+import {
+  Button,
+  Group,
+  Stack,
+  Text,
+  // TextInput,
+  Title,
+} from '@mantine/core';
 import { getWordPlural } from '@shared/lib';
 import type { KeyboardEvent, MouseEventHandler } from 'react';
 
@@ -54,15 +61,23 @@ export function ProfileHeader({
       <Group justify="space-between">
         {canEditName ? (
           isEditing ? (
-            <TextInput
-              value={draftName}
-              maxLength={12}
+            <input
               autoFocus
+              value={draftName}
               onChange={({ currentTarget: { value } }) => handleChange(value)}
+              style={{ width: '50%', height: 44 }}
               onBlur={handleBlur}
               onKeyDown={handleNameKeyDown}
             />
           ) : (
+            // <TextInput
+            //   value={draftName}
+            //   maxLength={12}
+            //   autoFocus
+            //   onChange={({ currentTarget: { value } }) => handleChange(value)}
+            //   onBlur={handleBlur}
+            //   onKeyDown={handleNameKeyDown}
+            // />
             <Button
               variant="subtle"
               onClick={handleStartEdit as MouseEventHandler<HTMLButtonElement>}

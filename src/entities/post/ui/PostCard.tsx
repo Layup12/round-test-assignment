@@ -1,9 +1,8 @@
 import type { UserEntity } from '@entities';
-import { Card, Group, Stack, Text } from '@mantine/core';
-import clsx from 'clsx';
+import { Button, Card, Group, Stack, Text } from '@mantine/core';
+import { UserLink } from '@shared/ui';
 
 import type { PostEntity } from '../model';
-import classes from './PostCard.module.scss';
 
 interface PostCardProps {
   post: PostEntity;
@@ -28,27 +27,16 @@ export function PostCard({
     <Card withBorder shadow="xs" radius="md">
       <Stack gap="xs">
         <Group justify="space-between" align="flex-start">
-          <Text
-            fw={600}
-            c="blue"
-            className={clsx(classes.author, onAuthorClick && classes.authorClickable)}
-            onClick={onAuthorClick}
-          >
-            {author?.name ?? 'Неизвестный пользователь'}
-          </Text>
+          <UserLink onClick={onAuthorClick}>{author?.name ?? 'Неизвестный пользователь'}</UserLink>
           <Text c="dimmed">{createdAt.toLocaleString()}</Text>
         </Group>
 
         <Text>{post.text}</Text>
 
         <Group justify="flex-end" gap="xs">
-          <button
-            type="button"
-            className={clsx(classes.likeButton, isLikedByCurrentUser && classes.likeButtonActive)}
-            onClick={onToggleLike}
-          >
+          <Button variant="subtle" onClick={onToggleLike}>
             {isLikedByCurrentUser ? 'Убрать лайк' : 'Лайк'}
-          </button>
+          </Button>
           <Text size="sm" c="dimmed">
             {likesCount}
           </Text>

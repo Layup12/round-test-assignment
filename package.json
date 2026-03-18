@@ -15,10 +15,14 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@capacitor/app": "^8.0.1",
+    "@capacitor/core": "^8.2.0",
+    "@capacitor/keyboard": "^8.0.1",
+    "@capacitor/splash-screen": "^8.0.1",
+    "@capacitor/status-bar": "^8.0.1",
     "@mantine/core": "^8.0.0",
     "@mantine/hooks": "^8.0.0",
     "@reduxjs/toolkit": "^2.0.0",
-    "clsx": "^2.1.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-redux": "^9.0.0",

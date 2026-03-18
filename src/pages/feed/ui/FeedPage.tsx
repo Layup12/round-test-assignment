@@ -14,7 +14,7 @@ export function FeedPage() {
   const { handleToggleLike, handleGoToProfile, handleGoToOwnProfile } = useFeedActions(currentUserId);
 
   return (
-    <Container size="xs" py="md" h="100vh" className={classes.root}>
+    <Container>
       <Stack gap="md" className={classes.content}>
         <Title ta="center">Лента</Title>
 
