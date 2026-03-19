@@ -8,4 +8,7 @@ export default defineConfig({
   resolve: {
     alias: aliases,
   },
+  server: {
+    port: 5174,
+  },
 });

@@ -8,4 +8,5 @@ export const aliases = {
   '@features': path.resolve(__dirname, 'src/features'),
   '@shared/lib': path.resolve(__dirname, 'src/shared/lib'),
   '@shared/ui': path.resolve(__dirname, 'src/shared/ui'),
+  '@mock': path.resolve(__dirname, 'src/mock'),
 };
