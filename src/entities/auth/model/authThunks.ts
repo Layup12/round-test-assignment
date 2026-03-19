@@ -1,6 +1,6 @@
 import type { AppDispatch, RootState } from '@app/store';
 
-import { addUser, selectAllUsers } from '../../user/userSlice';
+import { addUser, selectAllUsers } from '../../user';
 import { setCurrentUser } from './authSlice';
 
 export const loginByName = (rawName: string) => (dispatch: AppDispatch, getState: () => RootState) => {

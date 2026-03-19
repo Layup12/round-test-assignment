@@ -25,3 +25,8 @@ assets
 
 # Pnpm
 .pnpm-store
+
+# Playwright artifacts
+test-results
+playwright-report
+blob-report
