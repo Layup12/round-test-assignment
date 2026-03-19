@@ -1,6 +1,10 @@
 .content {
   flex: 1;
   min-height: 0;
+
+  @media (min-width: 768px) {
+    gap: var(--mantine-spacing-md);
+  }
 }
 
 .feedList {

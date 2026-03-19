@@ -15,8 +15,10 @@ export function FeedPage() {
 
   return (
     <Container>
-      <Stack gap="md" className={classes.content}>
-        <Title ta="center">Лента</Title>
+      <Stack className={classes.content}>
+        <Title size="h2" ta="center">
+          Лента
+        </Title>
 
         <FeedTabs value={activeTab} onChange={setActiveTab} />
 

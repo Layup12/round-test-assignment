@@ -47,8 +47,9 @@ const theme = createTheme({
     },
     Container: {
       defaultProps: {
+        pt: 'md',
+        pb: 'lg',
         px: 'md',
-        py: 'lg',
       },
       styles: {
         root: {
@@ -58,6 +59,11 @@ const theme = createTheme({
           width: '100%',
           boxSizing: 'border-box',
         },
+      },
+    },
+    Stack: {
+      defaultProps: {
+        gap: 'xs',
       },
     },
     Modal: {

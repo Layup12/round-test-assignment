@@ -52,7 +52,7 @@ export function ProfileHeader({
   };
 
   return (
-    <Stack gap="xs">
+    <Stack>
       <Group justify="space-between" gap="xs" wrap="nowrap">
         {canEditName ? (
           isEditing ? (
@@ -107,13 +107,13 @@ export function ProfileHeader({
           <Text fw={500} mr={4}>
             {followersCount}
           </Text>
-          <Text c="dimmed">{getWordPlural(followersCount, 'подписчик', 'подписчика', 'подписчиков')}</Text>
+          <Text>{getWordPlural(followersCount, 'подписчик', 'подписчика', 'подписчиков')}</Text>
         </Button>
         <Button variant="subtle" onClick={onFollowingClick}>
           <Text fw={500} mr={4}>
             {followingCount}
           </Text>
-          <Text c="dimmed">{getWordPlural(followingCount, 'подписка', 'подписки', 'подписок')}</Text>
+          <Text>{getWordPlural(followingCount, 'подписка', 'подписки', 'подписок')}</Text>
         </Button>
       </Group>
     </Stack>
