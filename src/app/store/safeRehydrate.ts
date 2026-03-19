@@ -1,4 +1,5 @@
 import { authSlice, followSlice, likeSlice, postSlice, userSlice } from '@entities';
+import { buildDemoEntities } from '@mock/seedDemoData';
 
 const rootInitialState = {
   auth: authSlice.getInitialState(),
@@ -43,6 +44,18 @@ const ensureEntityState = <T extends { ids: unknown; entities: unknown }>(
 
 export const safeRehydratePersistedState = async (state: unknown) => {
   if (!state || typeof state !== 'object') {
+    if (import.meta.env.VITE_ENABLE_DEMO_DATA === 'true') {
+      const demo = buildDemoEntities();
+
+      return buildPersistedState({
+        auth: rootInitialState.auth,
+        users: demo.users,
+        posts: demo.posts,
+        follows: demo.follows,
+        likes: demo.likes,
+      });
+    }
+
     return buildPersistedState(rootInitialState);
   }
 

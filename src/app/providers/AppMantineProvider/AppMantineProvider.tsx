@@ -47,9 +47,7 @@ const theme = createTheme({
     },
     Container: {
       defaultProps: {
-        pt: 'md',
-        pb: 'lg',
-        px: 'md',
+        p: 'md',
       },
       styles: {
         root: {
