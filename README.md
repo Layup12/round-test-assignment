@@ -1,7 +1,7 @@
 # ROUND Тестовое задание
 
-Мини-соцсеть на React + TypeScript + Redux Toolkit.  
-Авторизация по имени, лента постов, профиль, подписки/подписчики, хранение данных в `localStorage`.
+Мини-соцсеть на React + TypeScript + Redux Toolkit + Capacitor.  
+Авторизация по имени, лента постов, профиль, подписки/подписчики, хранение данных в `localStorage` и запуск внутри нативных контейнеров iOS/Android через Capacitor.
 
 ## Стек
 
@@ -11,6 +11,7 @@
 - Mantine 8 + SCSS Modules
 - react-virtualized
 - Vite 7
+- Capacitor 8 (iOS/Android контейнер)
 - ESLint + Prettier
 
 ## Запуск
