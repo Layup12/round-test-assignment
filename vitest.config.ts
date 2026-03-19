@@ -13,10 +13,6 @@ export default defineConfig({
     globals: true,
     setupFiles: [],
     include: ['src/**/*.{test,spec}.{ts,tsx}', 'tests/**/*.{test,spec}.{ts,tsx}'],
-    exclude: [
-      'node_modules/**',
-      'tests/e2e/**',
-      'playwright.config.{ts,js,mts,mjs,cjs}',
-    ],
+    exclude: ['node_modules/**', 'tests/e2e/**', 'playwright.config.{ts,js,mts,mjs,cjs}'],
   },
 });

@@ -13,7 +13,7 @@ export function CreatePostForm({ onSubmit }: CreatePostFormProps) {
 
   return (
     <form name="create-post-form" aria-label="Форма создания поста" onSubmit={handleSubmit}>
-      <Stack gap="xs" pt="xs">
+      <Stack pt="xs">
         <Textarea
           id="create-post-text"
           name="postText"

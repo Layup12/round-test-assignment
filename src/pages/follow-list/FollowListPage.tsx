@@ -35,10 +35,12 @@ export function FollowListPage({ type }: FollowListPageProps) {
 
   return (
     <Container>
-      <Stack gap="md" className={classes.content}>
-        <Title ta="center">{title}</Title>
+      <Stack className={classes.content}>
+        <Title size="h2" ta="center">
+          {title}
+        </Title>
 
-        <Stack gap="xs" className={classes.listSection}>
+        <Stack className={classes.listSection}>
           {users.length === 0 ? (
             <Text c="dimmed">Список пуст.</Text>
           ) : (

@@ -17,6 +17,12 @@
   }
 }
 
+@media (min-width: 1280px) {
+  .root {
+    max-width: var(--mantine-breakpoint-lg);
+  }
+}
+
 .content {
   flex: 1;
   min-height: 0;

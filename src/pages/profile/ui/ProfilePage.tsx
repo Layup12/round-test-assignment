@@ -50,7 +50,7 @@ export function ProfilePage() {
 
   return (
     <Container>
-      <Stack gap="md" className={classes.content}>
+      <Stack className={classes.content}>
         <ProfileHeader
           name={profileUser.name}
           followersCount={followersCount}
@@ -64,7 +64,7 @@ export function ProfilePage() {
           onFollowingClick={handleFollowingClick}
         />
 
-        <Stack gap="xs" className={classes.postsSection}>
+        <Stack className={classes.postsSection}>
           <Group justify="space-between" align="center">
             <Title order={3}>Посты</Title>
             {isOwnProfile && (
