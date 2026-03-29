@@ -1,10 +1,22 @@
 import { Share } from '@capacitor/share';
 
-function buildProfileUrl(userId: string): string {
-  if (typeof window === 'undefined') {
-    return '';
+function getPublicOrigin(): string {
+  const fromEnv = import.meta.env.VITE_PUBLIC_APP_URL?.trim();
+  if (fromEnv) {
+    return fromEnv.replace(/\/$/, '');
   }
-  return `${window.location.origin}/profile/${encodeURIComponent(userId)}`;
+  if (typeof window !== 'undefined') {
+    return window.location.origin;
+  }
+  return '';
+}
+
+function buildProfileUrl(userId: string): string {
+  const origin = getPublicOrigin();
+  if (!origin) {
+    return `/profile/${encodeURIComponent(userId)}`;
+  }
+  return `${origin}/profile/${encodeURIComponent(userId)}`;
 }
 
 function isShareCancelled(error: unknown): boolean {
