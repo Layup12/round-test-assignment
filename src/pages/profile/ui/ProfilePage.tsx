@@ -14,6 +14,7 @@ import {
 import { CreatePostForm } from './CreatePostForm';
 import { ProfileHeader } from './ProfileHeader';
 import classes from './ProfilePage.module.scss';
+import { ProfilePageNotFound } from './ProfilePageNotFound';
 
 export function ProfilePage() {
   const { userId } = useParams<{ userId: string }>();
@@ -36,16 +37,7 @@ export function ProfilePage() {
   });
 
   if (!profileUser) {
-    return (
-      <Container>
-        <Stack>
-          <Button variant="light" onClick={handleGoBack}>
-            Назад
-          </Button>
-          <Title order={3}>Пользователь не найден</Title>
-        </Stack>
-      </Container>
-    );
+    return <ProfilePageNotFound onBack={handleGoBack} />;
   }
 
   return (
