@@ -5,11 +5,11 @@ import type { PropsWithChildren } from 'react';
 
 const theme = createTheme({
   breakpoints: {
-    xs: '390px',
-    sm: '768px',
-    md: '1024px',
-    lg: '1280px',
-    xl: '1440px',
+    xs: 'var(--app-bp-xs)',
+    sm: 'var(--app-bp-sm)',
+    md: 'var(--app-bp-md)',
+    lg: 'var(--app-bp-lg)',
+    xl: 'var(--app-bp-xl)',
   },
   components: {
     Button: Button.extend({

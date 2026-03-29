@@ -1,3 +1,4 @@
+import { useRegisterAndroidBackOverlay } from '@shared/lib';
 import { useState } from 'react';
 
 interface UseCreatePostModalParams {
@@ -26,6 +27,8 @@ export function useCreatePostModal({ onSubmit }: UseCreatePostModalParams): UseC
     onSubmit(text);
     setIsOpen(false);
   };
+
+  useRegisterAndroidBackOverlay(close, isOpen);
 
   return {
     isOpen,

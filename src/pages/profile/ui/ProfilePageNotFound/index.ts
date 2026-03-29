@@ -1,0 +1,1 @@
+export { ProfilePageNotFound } from './ProfilePageNotFound';

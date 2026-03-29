@@ -1,0 +1,1 @@
+export { ResponsiveLabeledAction } from './ResponsiveLabeledAction';

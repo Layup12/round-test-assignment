@@ -1,7 +1,7 @@
 import { Button, Group, Stack } from '@mantine/core';
 import { Textarea } from '@shared/ui';
 
-import { useCreatePostForm } from '../model';
+import { useCreatePostForm } from '../../model';
 import classes from './CreatePostForm.module.scss';
 
 interface CreatePostFormProps {

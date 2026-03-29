@@ -1,24 +1,20 @@
 .root {
-  min-height: 100%;
+  min-height: 100dvh;
   width: 100%;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  padding-top: env(safe-area-inset-top, 16px);
-  padding-bottom: env(safe-area-inset-bottom, 16px);
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
   padding-left: 12px;
   padding-right: 12px;
   box-sizing: border-box;
-}
 
-@media (min-width: 768px) {
-  .root {
+  @media (min-width: var(--app-bp-sm)) {
     max-width: var(--mantine-breakpoint-sm);
   }
-}
 
-@media (min-width: 1280px) {
-  .root {
+  @media (min-width: var(--app-bp-lg)) {
     max-width: var(--mantine-breakpoint-lg);
   }
 }
