@@ -1,7 +1,8 @@
 import { useAppSelector } from '@app/store';
-import { selectAllLikes, VirtualizedPostList } from '@entities';
-import { ActionIcon, Box, Button, Container, Group, Modal, Stack, Text, Title } from '@mantine/core';
-import { IconPlus } from '@tabler/icons-react';
+import { selectAllLikes } from '@entities';
+import { Box, Button, Container, Modal, Stack, Title } from '@mantine/core';
+import { shareProfile } from '@shared/lib';
+import { useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 
 import {
@@ -10,11 +11,12 @@ import {
   useProfileIdentity,
   useProfileNavigation,
   useProfilePosts,
-} from '../model';
-import { CreatePostForm } from './CreatePostForm';
-import { ProfileHeader } from './ProfileHeader';
+} from '../../model';
+import { CreatePostForm } from '../CreatePostForm';
+import { ProfileHeader } from '../ProfileHeader';
+import { ProfilePageNotFound } from '../ProfilePageNotFound';
+import { ProfilePostsSection } from '../ProfilePostsSection';
 import classes from './ProfilePage.module.scss';
-import { ProfilePageNotFound } from './ProfilePageNotFound';
 
 export function ProfilePage() {
   const { userId } = useParams<{ userId: string }>();
@@ -36,6 +38,13 @@ export function ProfilePage() {
     onSubmit: handleCreatePost,
   });
 
+  const handleShareProfile = useCallback(async () => {
+    if (!profileUser) {
+      return;
+    }
+    await shareProfile({ userId: profileUser.id, displayName: profileUser.name });
+  }, [profileUser]);
+
   if (!profileUser) {
     return <ProfilePageNotFound onBack={handleGoBack} />;
   }
@@ -54,40 +63,20 @@ export function ProfilePage() {
           onLogout={isOwnProfile ? handleLogout : undefined}
           onFollowersClick={handleFollowersClick}
           onFollowingClick={handleFollowingClick}
+          onShareProfile={handleShareProfile}
         />
 
-        <Stack className={classes.postsSection}>
-          <Group justify="space-between" align="center">
-            <Title order={3}>Посты</Title>
-            {isOwnProfile && (
-              <ActionIcon
-                variant="light"
-                size="xl"
-                radius="xl"
-                aria-label="Создать новый пост"
-                onClick={open}
-              >
-                <IconPlus size={18} stroke={2} />
-              </ActionIcon>
-            )}
-          </Group>
-
-          <Box className={classes.postsList}>
-            {posts.length === 0 ? (
-              <Text c="dimmed">Постов пока нет.</Text>
-            ) : (
-              <VirtualizedPostList
-                posts={posts}
-                hasMore={hasMore}
-                loadMore={loadMore}
-                getAuthor={() => profileUser}
-                currentUserId={currentUserId}
-                likes={likes}
-                onToggleLike={({ id }) => handleToggleLike(id)}
-              />
-            )}
-          </Box>
-        </Stack>
+        <ProfilePostsSection
+          posts={posts}
+          hasMore={hasMore}
+          loadMore={loadMore}
+          profileUser={profileUser}
+          currentUserId={currentUserId}
+          likes={likes}
+          isOwnProfile={isOwnProfile}
+          onOpenCreatePost={open}
+          onToggleLike={handleToggleLike}
+        />
 
         {isOwnProfile && (
           <Modal
@@ -97,7 +86,7 @@ export function ProfilePage() {
             size="md"
             withCloseButton
             title={
-              <Title order={3} ta="center">
+              <Title order={3} component="span" ta="center" display="block">
                 Новый пост
               </Title>
             }

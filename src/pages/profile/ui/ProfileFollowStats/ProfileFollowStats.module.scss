@@ -1,0 +1,14 @@
+.statInner {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35em;
+  min-width: 0;
+}
+
+.statCount {
+  font-variant-numeric: tabular-nums;
+}
+
+.statWords {
+  white-space: nowrap;
+}

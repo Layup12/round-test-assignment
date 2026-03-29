@@ -1,3 +1,11 @@
+:root {
+  --app-bp-xs: 390px;
+  --app-bp-sm: 768px;
+  --app-bp-md: 1024px;
+  --app-bp-lg: 1280px;
+  --app-bp-xl: 1440px;
+}
+
 *,
 *::before,
 *::after {

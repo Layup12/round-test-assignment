@@ -1,0 +1,14 @@
+.nameInputRoot {
+  width: 50%;
+  height: 44px;
+}
+
+.nameBlock {
+  flex: 1;
+  min-width: 0;
+}
+
+.nameButton {
+  flex-shrink: 1;
+  max-width: 100%;
+}

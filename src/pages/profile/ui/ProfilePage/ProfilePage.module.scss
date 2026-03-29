@@ -1,0 +1,8 @@
+.content {
+  flex: 1;
+  min-height: 0;
+
+  @media (min-width: var(--app-bp-sm)) {
+    gap: var(--mantine-spacing-md);
+  }
+}
