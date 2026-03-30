@@ -1,6 +1,13 @@
 import { useAppDispatch, useAppSelector } from '@app/store';
-import { addPost, clearCurrentUser, renameUserIfUnique, toggleFollowByUserId } from '@entities';
+import {
+  addPost,
+  clearCurrentUser,
+  renameUserIfUnique,
+  setUserAvatar,
+  toggleFollowByUserId,
+} from '@entities';
 import { useToggleLike } from '@features';
+import { deleteUserAvatarFile, getAvatarRelativePath } from '@shared/lib';
 import { useNavigate } from 'react-router-dom';
 
 interface UseProfileActionsParams {
@@ -14,6 +21,7 @@ interface UseProfileActionsResult {
   handleCreatePost: (text: string) => void;
   handleLogout: () => void;
   handleChangeName: (nextName: string) => void;
+  handleAvatarPathChange: (next: string | null) => void;
 }
 
 export function useProfileActions({
@@ -64,11 +72,24 @@ export function useProfileActions({
     );
   };
 
+  const handleAvatarPathChange = (next: string | null) => {
+    if (!currentUserId || !isOwnProfile) {
+      return;
+    }
+
+    if (next === null) {
+      void deleteUserAvatarFile(getAvatarRelativePath(currentUserId));
+    }
+
+    dispatch(setUserAvatar({ userId: currentUserId, avatarPath: next }));
+  };
+
   return {
     handleToggleFollow,
     handleToggleLike,
     handleCreatePost,
     handleLogout,
     handleChangeName,
+    handleAvatarPathChange,
   };
 }

@@ -1,3 +1,32 @@
+.avatarButton {
+  flex-shrink: 0;
+  padding: 0;
+  border-radius: 50%;
+  line-height: 0;
+
+  &:focus-visible {
+    outline: 2px solid var(--mantine-primary-color-filled);
+    outline-offset: 2px;
+  }
+}
+
+.avatarReadonly {
+  flex-shrink: 0;
+  line-height: 0;
+}
+
+.avatarCircle {
+  flex-shrink: 0;
+}
+
+.hiddenFileInput {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .nameInputRoot {
   width: 50%;
   height: 44px;

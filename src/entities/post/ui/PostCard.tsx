@@ -1,7 +1,7 @@
 import type { UserEntity } from '@entities';
-import { Button, Card, Group, Stack, Text } from '@mantine/core';
+import { Box, Button, Card, Group, Stack, Text } from '@mantine/core';
 import { formatPostDate } from '@shared/lib';
-import { UserLink } from '@shared/ui';
+import { UserAvatar, UserLink } from '@shared/ui';
 import { IconHeart, IconHeartFilled } from '@tabler/icons-react';
 import cn from 'classnames';
 
@@ -28,8 +28,13 @@ export function PostCard({
   return (
     <Card withBorder shadow="xs" radius="md">
       <Stack gap={0}>
-        <Group justify="space-between" align="center" wrap="nowrap">
-          <UserLink onClick={onAuthorClick}>{author?.name ?? 'Неизвестный пользователь'}</UserLink>
+        <Group justify="space-between" align="center" wrap="nowrap" gap="sm">
+          <Group gap="sm" align="center" wrap="nowrap" style={{ flex: 1, minWidth: 0 }}>
+            <UserAvatar name={author?.name} avatarPath={author?.avatarPath} size={36} />
+            <Box style={{ minWidth: 0, flex: 1 }}>
+              <UserLink onClick={onAuthorClick}>{author?.name ?? 'Неизвестный пользователь'}</UserLink>
+            </Box>
+          </Group>
           <Text c="dimmed" className="ellipsisText" style={{ flexShrink: 0 }}>
             {formatPostDate(post.createdAt)}
           </Text>
