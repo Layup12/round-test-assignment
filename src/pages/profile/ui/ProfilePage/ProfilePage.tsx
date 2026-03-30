@@ -28,11 +28,17 @@ export function ProfilePage() {
     useProfileNavigation(userId);
 
   const { posts, hasMore, loadMore } = useProfilePosts(userId);
-  const { handleToggleFollow, handleToggleLike, handleCreatePost, handleLogout, handleChangeName } =
-    useProfileActions({
-      userId,
-      isOwnProfile,
-    });
+  const {
+    handleToggleFollow,
+    handleToggleLike,
+    handleCreatePost,
+    handleLogout,
+    handleChangeName,
+    handleAvatarPathChange,
+  } = useProfileActions({
+    userId,
+    isOwnProfile,
+  });
 
   const { isOpen, open, close, handleSubmitAndClose } = useCreatePostModal({
     onSubmit: handleCreatePost,
@@ -53,7 +59,10 @@ export function ProfilePage() {
     <Container>
       <Stack className={classes.content}>
         <ProfileHeader
+          userId={profileUser.id}
           name={profileUser.name}
+          avatarPath={profileUser.avatarPath}
+          onAvatarPathChange={isOwnProfile ? handleAvatarPathChange : undefined}
           followersCount={followersCount}
           followingCount={followingCount}
           isOwnProfile={isOwnProfile}

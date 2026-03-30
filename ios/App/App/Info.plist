@@ -47,5 +47,11 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Приложению нужен доступ к камере, чтобы сделать фото для аватара профиля.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Приложению нужен доступ к фото, чтобы выбрать изображение для аватара профиля.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Приложению может понадобиться доступ для сохранения снимка в галерею.</string>
 </dict>
 </plist>

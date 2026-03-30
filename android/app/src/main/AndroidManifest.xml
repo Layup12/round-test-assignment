@@ -41,4 +41,10 @@
     <!-- Permissions -->
 
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Capacitor Camera: без объявления CAMERA плагин считает разрешение выданным и не показывает системный запрос. -->
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!-- Камера для аватара опциональна (устройства без камеры / эмулятор). -->
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
 </manifest>

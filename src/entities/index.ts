@@ -33,6 +33,7 @@ export {
   renameUserIfUnique,
   selectAllUsers,
   selectUserById,
+  setUserAvatar,
   setUsers,
   type UserEntity,
   userSlice,

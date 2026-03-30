@@ -1,14 +1,17 @@
-import { Button, Group, Stack, Text } from '@mantine/core';
-import { Input } from '@shared/ui';
+import { Group, Stack } from '@mantine/core';
 import { type KeyboardEvent, type MouseEventHandler, useCallback, useState } from 'react';
 
 import { useEditableProfileName } from '../../model';
 import { ProfileFollowStats } from '../ProfileFollowStats';
 import { ProfileHeaderToolbar } from '../ProfileHeaderToolbar';
-import classes from './ProfileHeader.module.scss';
+import { ProfileAvatarBlock } from './ProfileAvatarBlock';
+import { ProfileHeaderTitleBlock } from './ProfileHeaderTitleBlock';
 
 interface ProfileHeaderProps {
+  userId: string;
   name: string;
+  avatarPath?: string | null;
+  onAvatarPathChange?: (next: string | null) => void;
   followersCount: number;
   followingCount: number;
   isOwnProfile: boolean;
@@ -22,7 +25,10 @@ interface ProfileHeaderProps {
 }
 
 export function ProfileHeader({
+  userId,
   name,
+  avatarPath,
+  onAvatarPathChange,
   followersCount,
   followingCount,
   isOwnProfile,
@@ -69,42 +75,25 @@ export function ProfileHeader({
 
   return (
     <Stack>
-      <Group justify="space-between" gap="xs" wrap="nowrap" align="flex-start">
-        <div className={classes.nameBlock}>
-          {canEditName ? (
-            isEditing ? (
-              <Input
-                id="name"
-                name="name"
-                aria-label="Имя пользователя"
-                placeholder="Введите имя"
-                value={draftName}
-                onChange={({ currentTarget: { value } }) => handleChange(value)}
-                onBlur={handleBlur}
-                onKeyDown={handleNameKeyDown}
-                classes={{ root: classes.nameInputRoot }}
-                maxLength={12}
-                autoFocus
-                canClear
-              />
-            ) : (
-              <Button
-                variant="subtle"
-                onClick={handleStartEdit as MouseEventHandler<HTMLButtonElement>}
-                aria-label="Изменить имя"
-                className={classes.nameButton}
-              >
-                <Text fw={600} size="lg" className="ellipsisText">
-                  {name}
-                </Text>
-              </Button>
-            )
-          ) : (
-            <Text fw={600} size="lg" className="ellipsisText">
-              {name}
-            </Text>
-          )}
-        </div>
+      <Group justify="space-between" gap="sm" wrap="nowrap" align="flex-start">
+        <Group gap="sm" wrap="nowrap" align="flex-start" style={{ flex: 1, minWidth: 0 }}>
+          <ProfileAvatarBlock
+            userId={userId}
+            name={name}
+            avatarPath={avatarPath}
+            onAvatarPathChange={onAvatarPathChange}
+          />
+          <ProfileHeaderTitleBlock
+            name={name}
+            canEditName={canEditName}
+            isEditing={isEditing}
+            draftName={draftName}
+            onChangeDraft={handleChange}
+            onBlurName={handleBlur}
+            onStartEdit={handleStartEdit}
+            onKeyDown={handleNameKeyDown}
+          />
+        </Group>
 
         <ProfileHeaderToolbar
           isSharing={isSharing}

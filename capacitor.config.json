@@ -2,6 +2,7 @@
   "appId": "com.example.newround",
   "appName": "NewRoundHybrid",
   "webDir": "dist",
+  "backgroundColor": "#ffffff",
   "plugins": {
     "SplashScreen": {
       "launchShowDuration": 0,
